@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+ 
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='CSS/warn.css') }}">
+    <script src="{{ url_for('static',filename='js/timer.js') }}"></script>
+{% endblock %}
+ 
+{% block page_name %}提示{% endblock %}
+ 
+{% block body %}
+<div class="informs" style="margin-top:30px">
+    <h4 style="margin:10px 10px" >提示信息</h4>
+    <p>
+        <span class="key-message" style="margin-left:10px">未找到相关结果。</span>
+        <span id="timer">5</span>秒后将自动跳转回首页。
+    </p>
+    <div class="jump-button">
+        <button type="submit" class="btn btn-primary pull-right" style="float:right" onclick="location='{{ url_for('qa.index') }}'">立即跳转</button>
+    </div>
+</div>
+<script type="text/javascript">timetojump(5,"{{ url_for('qa.index') }}");</script>
+{% endblock %}
+

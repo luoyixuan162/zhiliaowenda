@@ -1,0 +1,62 @@
+.question-ul .no-question{
+    font-size: 40px;
+    text-align: center;
+    color: #CCC;
+    line-height: 800px;
+}
+
+.question-ul li{
+    padding: 10px;
+    overflow: hidden;
+    display: flex;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+}
+
+.side-question{
+    flex-basis: 38px;
+    height: 100%;
+}
+
+.side-question-avatar{
+    width: 38px;
+    height: 38px;
+    border-radius: 3px;
+}
+
+.question-main{
+    flex: 1;
+    width: 620px;
+    margin-left: 10px;
+    overflow: hidden;
+}
+
+.question-title a{
+    color: #259;
+    font-size: 14px;
+    font-weight: 900;
+}
+
+.question-content{
+    margin-top: 5px;
+    font-size: 15px;
+    word-break:break-all;
+    word-wrap:break-word;
+    /* 强制不换行 */
+    white-space: nowrap;
+    /* 文字用省略号代替超出的部分 */
+    text-overflow: ellipsis;
+    /* 匀速溢出内容，隐藏 */
+    overflow: hidden;
+
+}
+
+.question-author{
+    font-size: 12px;
+    margin-left:470px;
+}
+
+.question-time{
+    font-size: 12px;
+    margin-left:10px;
+}

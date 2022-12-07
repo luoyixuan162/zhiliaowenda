@@ -1,0 +1,27 @@
+version: "3"
+services:
+  zl_python:
+    image: python:3.7.5
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    ports:
+      - "1033:1033"
+    environment:
+      - DB_CONFIg = mysql+pymysql://root:123456@172.16.200.101:3306/zhiliaowenda
+      - LNAG=en_US.utf8
+      - LC_ALL=en_US.utf8
+    depends_on:
+      - mysql
+    volumes:
+      - .:/app
+    command: /bin/bash -c "python3 app.py"
+
+  mysql:
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - password=123456
+    volumes:
+      - ./data/dm8:/home/dmdba/data

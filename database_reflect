@@ -1,0 +1,12 @@
+数据库映射--数据更新
+
+# 数据库初始  (第一次进入数据库时操作)
+flask db init
+
+# 数据迁移, 需要删除原有迁移文件
+flask db migrate
+
+# 数据映射/更新
+flask db upgrade
+
+操作三步之后，会生成一个migrations文件

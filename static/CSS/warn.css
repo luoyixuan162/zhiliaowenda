@@ -1,0 +1,24 @@
+/*显示提示框，隐藏其他部分*/
+.body-container{
+    overflow: hidden;
+}
+
+/*提示框显示格式*/
+.informs{
+    width: 560px;
+    margin: 0 auto;
+    text-align: center
+    padding: 5px;
+    border: 1px solid cornflowerblue;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/*消息体*/
+span.key-message{
+    color: #225599;
+}
+
+.jump-button{
+    background-color: #1E90FF;
+}
