@@ -6,6 +6,7 @@ import wtforms
 from wtforms.validators import length, Email, EqualTo, InputRequired
 from models import EmailCaptchaModel, UserModel
 from exts import db, redis_store
+from flask import flash
 
 
 class RegisterForm(wtforms.Form):
@@ -13,7 +14,7 @@ class RegisterForm(wtforms.Form):
     email = wtforms.StringField(validators=[Email(message="邮箱格式错误")])  # 判断是否为 email 格式数据
     captcha = wtforms.StringField(validators=[length(min=4, max=4, message="验证码格式错误")])
     username = wtforms.StringField(
-        validators=[length(min=2, max=20, message="用户名格式错误：最短2位，最长20位")])  # 用户名长度
+        validators=[length(min=1, max=20, message="用户名格式错误：最短2位，最长20位")])  # 用户名长度
     password = wtforms.StringField(validators=[length(min=6, max=12, message="密码格式错误：最短6位，最长12位")])  # 密码长度
     # EqualTo("password") EqualTo 验证器，判断password_confirm 是否于password相等
     password_confirm = wtforms.StringField(validators=[EqualTo("password", message="两次密码不一致")])
@@ -25,6 +26,7 @@ class RegisterForm(wtforms.Form):
         email = field.data
         user_model = UserModel.query.filter_by(email=email).first()
         if user_model:
+            flash(f"邮箱{email}已被注册")
             raise wtforms.ValidationError("该邮箱已被注册！")
 
     # 判断用户名是否已被注册
@@ -32,6 +34,7 @@ class RegisterForm(wtforms.Form):
         username = field.data
         user_model = UserModel.query.filter_by(username=username).first()
         if user_model:
+            flash(f"用户名{username}已被注册")
             raise wtforms.ValidationError("该用户名已被注册！")
 
     # 判断验证码是否正确
@@ -42,8 +45,10 @@ class RegisterForm(wtforms.Form):
         captcha_model = redis_store.get("valid_code:{}".format(email))
         if captcha != captcha_model:
             # 抛出异常
+            flash("验证码错误, 请重新输入")
             raise wtforms.ValidationError("验证码错误")
         elif not captcha_model:
+            flash("验证码已过期误, 请重新获取")
             raise wtforms.ValidationError("验证码已过期")
         # else:
         #     # 登录后删除验证码 。。 增加了查询时间，降低了访问效率
@@ -81,11 +86,12 @@ class RepasswordForm(wtforms.Form):
 
 class MessageForm(wtforms.Form):
     username = wtforms.StringField(
-        validators=[length(min=2, max=20, message="用户名格式错误：最短2位，最长20位")])  # 用户名长度
+        validators=[length(min=1, max=20, message="用户名格式错误：最短2位，最长20位")])  # 用户名长度
 
     # 判断用户名是否已被注册
     def validate_username(self, field):
         username = field.data
         user_model = UserModel.query.filter_by(username=username).first()
         if user_model:
+            flash(f"用户名{username}已被注册")
             raise wtforms.ValidationError("该用户名已被注册！")

@@ -3,5 +3,4 @@
 之后才能运行项目
 
 
-项目需要redis服务器
-MySQL服务器
+项目需要redis服务器、MySQL服务器

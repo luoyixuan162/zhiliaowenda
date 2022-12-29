@@ -2,57 +2,65 @@
 {% extends "base.html" %}
 {% block title %}知了问答-注册{% endblock %}
 {% block head %}
-    <script src="{{ url_for('static',filename='jquery/jquery.3.6.0.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='js/register.js') }}"></script>
+<script src="{{ url_for('static',filename='jquery/jquery.3.6.0.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/register.js') }}"></script>
 {% endblock %}
 {% block body %}
-    <div class="row mt-4">  {# 使用栅格系统，设置 列，只在中间一列插入数据 #}
-        <div class="col"></div>
-        <form method="POST" action="{{ url_for('user.register') }}" style="width:360px">
+<div class="row mt-4"> {# 使用栅格系统，设置 列，只在中间一列插入数据 #}
+    <div class="col"></div>
+    <form method="POST" action="{{ url_for('user.register') }}" style="width:360px">
 
-            <div class="form-group">
-                <label for="exampleInputEmail1">邮箱</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
-                <small id="emailHelp" class="form-text text-muted">我们不会把您的邮箱用于其他地方.</small>
-            </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">邮箱</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
+            <small id="emailHelp" class="form-text text-muted">我们不会把您的邮箱用于其他地方.</small>
+        </div>
 
-            <div class="form-group">
-                <label for="exampleInputEmail1">验证码</label>
 
-                <div class="input-group">
-                    <input type="text" class="form-control" name="captcha">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="captcha-ptn">点击获取验证码！</button>
-                    </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">验证码</label>
+
+            <div class="input-group">
+                <input type="text" class="form-control" name="captcha">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="captcha-ptn">点击获取验证码！</button>
                 </div>
-
             </div>
+            <small id="captchaHelp" class="form-text text-muted">验证码区分大小写.</small>
+        </div>
 
-            <div class="form-group">
-                <label for="exampleInputEmail1">用户名</label>
-                <input type="text" class="form-control" id="exampleInputUserName" name="username">
-            </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">用户名</label>
+            <input type="text" class="form-control" id="exampleInputUserName" name="username">
+        </div>
 
-            <div class="form-group">
-                <label for="exampleInputPassword1">密码</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" name="password">
-            </div>
-
-            <div class="form-group">
-                <label for="exampleInputPassword1">确认密码</label>
-                <input type="password" class="form-control" id="exampleInputPassword2" name="password_confirm">
-            </div>
-
-            <div class="form-group">
-                <label for="exampleInputPassword1">性别：</label>
-                <input type="radio" name="sex" checked value="男">男
-                <input type="radio" name="sex" value="女">女
-            </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">密码</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+            <small id="passwordaHelp" class="form-text text-muted">密码长度6至20位长度.</small>
+        </div>
 
 
-            <button type="submit" class="btn btn-primary btn-block">注册</button>
-            {# btn-block 设置按钮宽度为：于上等宽 #}
-        </form>
-        <div class="col"></div>
-    </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">确认密码</label>
+            <input type="password" class="form-control" id="exampleInputPassword2" name="password_confirm">
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputPassword1">性别：</label>
+            <input type="radio" name="sex" checked value="男">男
+            <input type="radio" name="sex" value="女">女
+        </div>
+
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-danger" role="alert">
+            {{message}}
+        </div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary btn-block">注册</button>
+        {# btn-block 设置按钮宽度为：于上等宽 #}
+    </form>
+    <div class="col"></div>
+</div>
 {% endblock %}

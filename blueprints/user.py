@@ -17,7 +17,7 @@ from decorators import login_required
 bp = Blueprint("user", __name__, url_prefix="/user")  # url_prefix :设置url前缀
 
 
-#  /user/register  注册
+# 注册
 # GET: 客户端从服务器端获取数据
 # POST：将客户端数据提交到服务器
 @bp.route("/register", methods=["GET", "POST"])
@@ -30,13 +30,15 @@ def register():
             email = form.email.data
             username = form.username.data
             sex = request.form["sex"]
+            print(email, username, sex)
             # md5 加密
             password = form.password.data
             hash_password = generate_password_hash(password)
-            user = UserModel(email=email, username=username, password=hash_password,sex=sex)
+            user = UserModel(email=email, username=username, password=hash_password, sex=sex)
             # try:
             db.session.add(user)
             db.session.commit()
+            # flash(f"账号{email}已注册成功")
             return redirect(url_for('user.login'))
             # except:
             #     db.session.rollback()
@@ -134,7 +136,8 @@ def get_captcha():
         # db.session.add(captcha_model)
         # db.session.commit()
         # 将验证码保存到redis中，第一个参数是key(邮箱)，第二个参数是value（验证码），第三个参数表示120秒后过期
-        redis_store.set("valid_code:{}".format(email), captcha, 120)
+        # redis_store.set("valid_code:{}".format(email), captcha, 120)
+        redis_store.set("valid_code:{}".format(email), captcha)
         return jsonify({"code": 200, "message": "验证码发送成功"})
     else:
         # 400 为客户端错误
